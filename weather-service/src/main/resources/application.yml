@@ -1,0 +1,6 @@
+open-weather:
+  url: https://api.openweathermap.org/data/2.5/forecast
+  api-key: df48762213c7f335f06e3b489bb969d4
+spring:
+  application:
+    name: weather-service

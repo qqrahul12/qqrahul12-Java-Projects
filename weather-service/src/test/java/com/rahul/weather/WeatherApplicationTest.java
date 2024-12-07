@@ -1,4 +1,4 @@
-package com.rahul;
+package com.rahul.weather;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
