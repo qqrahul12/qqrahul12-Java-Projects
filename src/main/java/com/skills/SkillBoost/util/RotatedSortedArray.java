@@ -1,4 +1,4 @@
-package com.game.SkillBoost.util;
+package com.skills.SkillBoost.util;
 
 public class RotatedSortedArray {
 }

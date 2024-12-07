@@ -1,4 +1,4 @@
-package com.game.SkillBoost.util;
+package com.skills.SkillBoost.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

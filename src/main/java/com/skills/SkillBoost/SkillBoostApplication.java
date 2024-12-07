@@ -1,11 +1,11 @@
-package com.game.SkillBoost;
+package com.skills.SkillBoost;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.game.SkillBoost.model.Difficulty;
-import com.game.SkillBoost.model.Region;
-import com.game.SkillBoost.service.TourPackageService;
-import com.game.SkillBoost.service.TourService;
+import com.skills.SkillBoost.model.Difficulty;
+import com.skills.SkillBoost.model.Region;
+import com.skills.SkillBoost.service.TourPackageService;
+import com.skills.SkillBoost.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.game.SkillBoost.util.Pattern.printHalfPyramid;
+import static com.skills.SkillBoost.util.Pattern.printHalfPyramid;
 
 @SpringBootApplication
 public class SkillBoostApplication implements CommandLineRunner {

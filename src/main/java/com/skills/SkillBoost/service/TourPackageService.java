@@ -1,9 +1,9 @@
-package com.game.SkillBoost.service;
+package com.skills.SkillBoost.service;
 
 import java.util.List;
 
-import com.game.SkillBoost.model.TourPackage;
-import com.game.SkillBoost.repository.TourPackageRepository;
+import com.skills.SkillBoost.model.TourPackage;
+import com.skills.SkillBoost.repository.TourPackageRepository;
 import org.springframework.stereotype.Service;
 
 @Service

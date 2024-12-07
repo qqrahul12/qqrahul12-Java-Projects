@@ -1,6 +1,6 @@
-package com.game.SkillBoost.repository;
+package com.skills.SkillBoost.repository;
 
-import com.game.SkillBoost.model.Tour;
+import com.skills.SkillBoost.model.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.game.SkillBoost.model;
+package com.skills.SkillBoost.model;
 
 /**
  * Enumeration of the level of effort.

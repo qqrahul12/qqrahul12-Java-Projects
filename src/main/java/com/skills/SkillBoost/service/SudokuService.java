@@ -1,4 +1,4 @@
-package com.game.SkillBoost.service;
+package com.skills.SkillBoost.service;
 
 import org.springframework.stereotype.Service;
 import java.util.Random;
