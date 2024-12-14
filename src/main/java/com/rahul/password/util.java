@@ -20,4 +20,11 @@ public class util {
     public static String getCharSequence(char[] from, char[] to, String specialChars) {
         return getCharSequence(from, to) + specialChars;
     }
+
+    public static boolean isComplexPassword(String password) {
+        return  password.chars().anyMatch(Character::isUpperCase) &&
+                password.chars().anyMatch(Character::isLowerCase) &&
+                password.chars().anyMatch(Character::isDigit) &&
+                password.chars().anyMatch(ch -> "!@#$%&*+?".indexOf(ch) != -1);
+    }
 }
