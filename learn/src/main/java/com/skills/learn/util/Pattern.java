@@ -1,4 +1,4 @@
-package com.skills.SkillBoost.util;
+package com.skills.learn.util;
 
 public class Pattern {
     public static void printSolidRectangle(int rows, int columns) {

@@ -1,11 +1,11 @@
-package com.skills.SkillBoost;
+package com.skills.learn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.skills.SkillBoost.model.Difficulty;
-import com.skills.SkillBoost.model.Region;
-import com.skills.SkillBoost.service.TourPackageService;
-import com.skills.SkillBoost.service.TourService;
+import com.skills.learn.model.Difficulty;
+import com.skills.learn.model.Region;
+import com.skills.learn.service.TourPackageService;
+import com.skills.learn.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,14 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
-
-import static com.skills.SkillBoost.util.Pattern.printHalfPyramid;
 
 @SpringBootApplication
-public class SkillBoostApplication implements CommandLineRunner {
+public class LearnApplication implements CommandLineRunner {
 
 	private final String TOUR_IMPORT_FILE = "ExploreCalifornia.json";
 
@@ -31,18 +27,19 @@ public class SkillBoostApplication implements CommandLineRunner {
 	private TourService tourService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SkillBoostApplication.class, args);
+		SpringApplication.run(LearnApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) {
 		System.out.println("Hello World");
-		Scanner scanner = new Scanner(System.in);
-		String a = scanner.nextLine();
-		System.out.println("You entered: " + a);
-		int[] b = Arrays.stream(a.split(" ")).mapToInt(Integer::parseInt).toArray();
-		System.out.println("Sum is: " + (b[0] + b[1]));
-		printHalfPyramid(5);
+//		Scanner scanner = new Scanner(System.in);
+//		String a = scanner.nextLine();
+//		System.out.println("You entered: " + a);
+//		int[] b = Arrays.stream(a.split(" ")).mapToInt(Integer::parseInt).toArray();
+//		System.out.println("Sum is: " + (b[0] + b[1]));
+//		printHalfPyramid(5);
+		System.out.println("Thread Name: " + Thread.currentThread().getName());
 	}
 
 	/**

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.skills</groupId>
-        <artifactId>SkillBoost</artifactId>
+        <artifactId>spring</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -16,6 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <service.main>com.weather.service.WeatherServiceApplication</service.main>
     </properties>
 
     <dependencies>

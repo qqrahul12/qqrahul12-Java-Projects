@@ -1,11 +1,11 @@
-package com.skills.SkillBoost.service;
+package com.skills.learn.service;
 
-import com.skills.SkillBoost.model.Difficulty;
-import com.skills.SkillBoost.model.Region;
-import com.skills.SkillBoost.model.Tour;
-import com.skills.SkillBoost.model.TourPackage;
-import com.skills.SkillBoost.repository.TourPackageRepository;
-import com.skills.SkillBoost.repository.TourRepository;
+import com.skills.learn.model.Difficulty;
+import com.skills.learn.model.Region;
+import com.skills.learn.model.Tour;
+import com.skills.learn.model.TourPackage;
+import com.skills.learn.repository.TourPackageRepository;
+import com.skills.learn.repository.TourRepository;
 import org.springframework.stereotype.Service;
 
 @Service

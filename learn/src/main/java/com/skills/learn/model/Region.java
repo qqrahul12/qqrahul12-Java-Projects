@@ -1,4 +1,4 @@
-package com.skills.SkillBoost.model;
+package com.skills.learn.model;
 
 /**
  * Enumeration of the region of California.
