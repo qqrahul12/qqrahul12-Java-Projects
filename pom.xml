@@ -24,6 +24,7 @@
         <module>learn</module>
         <module>file-manager</module>
         <module>weather-service</module>
+        <module>SplitMoney</module>
     </modules>
 
     <properties>
