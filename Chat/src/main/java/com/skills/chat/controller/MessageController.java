@@ -26,6 +26,13 @@ public class MessageController {
         return new ChatOutMessage(message.getMessage());
     }
 
+    @MessageMapping("/newUserJoined")
+    @SendTo("/chat/newUser")
+    public ChatOutMessage handleNewUserJoined(ChatInMessage message) throws InterruptedException {
+        Thread.sleep(1000);
+        System.out.println("New user joined: " + message.getSenderId());
+        return new ChatOutMessage(message.getMessage());
+    }
     @MessageExceptionHandler
     @SendTo("/chat/errors")
     public ChatOutMessage handleException(Throwable exception) {
