@@ -25,6 +25,8 @@
         <module>file-manager</module>
         <module>weather-service</module>
         <module>SplitMoney</module>
+        <module>Chat</module>
+        <module>employee-manager</module>
     </modules>
 
     <properties>
