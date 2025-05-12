@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,11 @@ public class GroupService {
     public GroupService(GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
+    }
+
+    public List<GroupRecord> findAll() {
+        List<Group> groupList = groupRepository.findAll();
+        return groupList.stream().map(GroupRecord::fromGroup).toList();
     }
 
     @Transactional

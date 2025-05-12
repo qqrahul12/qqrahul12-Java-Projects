@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/groups")
 public class GroupController {
 
     @Autowired
@@ -29,6 +29,12 @@ public class GroupController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(group, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<GroupRecord>> findAll() {
+        Iterable<GroupRecord> groups = groupService.findAll();
+        return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 
     @PostMapping
