@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {login} from "../../client/UserClient";
+import {login} from "../client/UserClient";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");

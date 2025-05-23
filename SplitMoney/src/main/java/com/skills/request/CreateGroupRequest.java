@@ -6,7 +6,6 @@ public record CreateGroupRequest(
         @NotBlank
         String name,
         String description,
-        @NotBlank
-        String creatorId
+        String creatorId // Removed @NotBlank since it is set on the server side
 ) {
 }

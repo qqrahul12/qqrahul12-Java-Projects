@@ -1,4 +1,9 @@
 package com.skills.request;
 
-public record JoinGroupRequest(String groupCode, String userId) {
+import jakarta.validation.constraints.NotBlank;
+
+public record JoinGroupRequest(
+        @NotBlank
+        String groupCode
+) {
 }

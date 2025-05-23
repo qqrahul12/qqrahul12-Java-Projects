@@ -36,9 +36,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity createUser(@RequestBody User user, HttpSession session) {
         try {
-            userService.saveUser(user);
+            User createdUser = userService.saveUser(user);
+            UserRecord userRecord = UserRecord.fromUser(createdUser);
+            if (userRecord != null) {
+                session.setAttribute("user", userRecord);
+            }
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

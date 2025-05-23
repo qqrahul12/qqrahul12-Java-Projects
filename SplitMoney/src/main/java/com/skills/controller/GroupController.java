@@ -54,9 +54,15 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity save(@NonNull @RequestBody CreateGroupRequest group) {
+    public ResponseEntity save(@NonNull @RequestBody CreateGroupRequest group, HttpSession session) {
         try {
-            groupService.save(group);
+            UserRecord user = (UserRecord) session.getAttribute("user");
+            if (user == null) {
+                return new ResponseEntity<>("User not logged in", HttpStatus.UNAUTHORIZED);
+            }
+
+            String creatorId = user.id();
+            groupService.save(new CreateGroupRequest(group.name(), group.description(), creatorId));
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,9 +90,15 @@ public class GroupController {
     }
 
     @PutMapping("/joinGroup")
-    public ResponseEntity joinGroup(@NonNull @RequestBody JoinGroupRequest joinGroupRequest) {
+    public ResponseEntity joinGroup(@NonNull @RequestBody JoinGroupRequest joinGroupRequest, HttpSession session) {
         try {
-            groupService.joinGroupWithCode(joinGroupRequest.groupCode(), joinGroupRequest.userId());
+            UserRecord user = (UserRecord) session.getAttribute("user");
+            if (user == null) {
+                return new ResponseEntity<>("User not logged in", HttpStatus.UNAUTHORIZED);
+            }
+
+            String userId = user.id();
+            groupService.joinGroupWithCode(joinGroupRequest.groupCode(), userId);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
