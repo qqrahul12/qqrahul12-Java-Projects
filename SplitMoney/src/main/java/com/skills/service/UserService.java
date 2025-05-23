@@ -27,6 +27,14 @@ public class UserService {
         return UserRecord.fromUser(user.get());
     }
 
+    public UserRecord verifyUser(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return UserRecord.fromUser(user);
+        }
+        return null;
+    }
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }

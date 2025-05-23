@@ -1,8 +1,8 @@
 package com.skills.controller;
 
-import com.skills.model.Group;
 import com.skills.model.GroupRecord;
 import com.skills.request.CreateGroupRequest;
+import com.skills.request.JoinGroupRequest;
 import com.skills.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +11,15 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
+import com.skills.model.UserRecord;
+import java.util.ArrayList;
+import java.util.List;
+
+// Allow CORS from your frontend
 @Controller
 @RequestMapping("/groups")
+@CrossOrigin(origins = "http://localhost:3000")
 public class GroupController {
 
     @Autowired
@@ -32,9 +39,18 @@ public class GroupController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<GroupRecord>> findAll() {
+    public ResponseEntity<Iterable<GroupRecord>> findAll(HttpSession session) {
         Iterable<GroupRecord> groups = groupService.findAll();
-        return new ResponseEntity<>(groups, HttpStatus.OK);
+        UserRecord user = (UserRecord) session.getAttribute("user");
+        List<GroupRecord> result = new ArrayList<>();
+        for (GroupRecord group : groups) {
+            boolean isMember = false;
+            if (user != null && group.users() != null) {
+                isMember = group.users().stream().anyMatch(member -> member.id().equals(user.id()));
+            }
+            result.add(group.withIsMember(isMember));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping
@@ -62,6 +78,16 @@ public class GroupController {
         try {
             groupService.save(group);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/joinGroup")
+    public ResponseEntity joinGroup(@NonNull @RequestBody JoinGroupRequest joinGroupRequest) {
+        try {
+            groupService.joinGroupWithCode(joinGroupRequest.groupCode(), joinGroupRequest.userId());
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

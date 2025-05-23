@@ -1,17 +1,23 @@
 package com.skills.controller;
 
 import com.skills.model.Expense;
+import com.skills.model.ExpenseRecord;
 import com.skills.request.CreateExpenseRequest;
 import com.skills.service.ExpenseService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "http://localhost:3000") // Add this annotation to allow CORS from your frontend
 @Controller
-@RequestMapping("/expense")
+@RequestMapping("/expenses")
 public class ExpenseController {
 
     @Autowired
@@ -34,5 +40,12 @@ public class ExpenseController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/groups/{groupId}")
+    public ResponseEntity<List<ExpenseRecord>> getByGroupId(@PathVariable String groupId) {
+        System.out.println("Fetching expenses for group ID: " + groupId);
+        List<ExpenseRecord> expenses = expenseService.findAllByGroupId(groupId);
+        return new ResponseEntity<>(expenses, HttpStatus.OK);
     }
 }

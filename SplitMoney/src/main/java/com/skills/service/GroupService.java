@@ -60,8 +60,13 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
+    public void joinGroupWithCode(@NonNull String code, @NonNull String userId) {
+        Optional<Group> groupOpt = groupRepository.findGroupByCode(code);
+        groupOpt.ifPresent(group -> addUserToGroup(group.getId(), userId));
+    }
+
     @Transactional
-    public void addUserToGroup(@NonNull String groupId, @NonNull String userId) {
+    public void addUserToGroup(@NonNull String groupId, @NonNull String userId) throws IllegalArgumentException {
         Optional<Group> groupOpt = groupRepository.findById(groupId);
         if (groupOpt.isEmpty()) {
             throw new IllegalArgumentException("Group does not exist");

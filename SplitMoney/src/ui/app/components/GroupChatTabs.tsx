@@ -1,8 +1,12 @@
 'use client'
 import React, {useState} from "react";
-import {Box, Paper, Tab, Tabs, Typography} from "@mui/material";
+import {Box, Paper, Tab, Tabs, Typography, List, ListItem, ListItemText} from "@mui/material";
+import { Expense } from "@app/schema/types";
 
-export const GroupChatTabs = () : React.JSX.Element => {
+type GroupChatTabsProps = {
+    expenseList: Expense[];
+}
+export const GroupChatTabs = ({ expenseList } : GroupChatTabsProps) : React.JSX.Element => {
     const [tab, setTab] = useState(0);
 
     return (
@@ -17,7 +21,20 @@ export const GroupChatTabs = () : React.JSX.Element => {
                     <Typography>Messages will appear here.</Typography>
                 )}
                 {tab === 1 && (
-                    <Typography>Expenses will appear here.</Typography>
+                    <List>
+                        {expenseList && expenseList.length > 0 ? (
+                            expenseList.map((expense, idx) => (
+                                <ListItem key={idx}>
+                                    <ListItemText
+                                        primary={expense.title || `Expense #${idx + 1}`}
+                                        secondary={`Amount: ${expense.amount ?? ''} | By: ${expense.paidBy ?? ''}`}
+                                    />
+                                </ListItem>
+                            ))
+                        ) : (
+                            <Typography>No expenses found.</Typography>
+                        )}
+                    </List>
                 )}
                 {tab === 2 && (
                     <Typography>Media files will appear here.</Typography>
@@ -26,3 +43,4 @@ export const GroupChatTabs = () : React.JSX.Element => {
         </Paper>
     );
 }
+

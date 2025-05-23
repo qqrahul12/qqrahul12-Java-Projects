@@ -8,7 +8,9 @@ public record GroupRecord(
         String description,
         String createdBy,
         String createdAt,
-        List<UserInfo> users
+        List<UserInfo> users,
+        String groupCode,
+        boolean isMember
 ) {
     public record UserInfo(String id, String firstName, String lastName, String email) {}
 
@@ -23,7 +25,22 @@ public record GroupRecord(
                 group.getDescription(),
                 group.getCreatedBy().getId(),
                 group.getCreatedAt(),
-                users
+                users,
+                group.getCode(),
+                false
+        );
+    }
+
+    public GroupRecord withIsMember(boolean isMember) {
+        return new GroupRecord(
+            this.id,
+            this.name,
+            this.description,
+            this.createdBy,
+            this.createdAt,
+            this.users,
+            this.groupCode,
+            isMember
         );
     }
 }

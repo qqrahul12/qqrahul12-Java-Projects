@@ -1,6 +1,7 @@
 package com.skills.service;
 
 import com.skills.model.Expense;
+import com.skills.model.ExpenseRecord;
 import com.skills.model.Group;
 import com.skills.model.UserExpenseMapping;
 import com.skills.repository.ExpenseRepository;
@@ -87,5 +88,15 @@ public class ExpenseService {
 
     public Expense findById(String id) {
         return expenseRepository.findById(id).get();
+    }
+
+    public List<ExpenseRecord> findAllByGroupId(String groupId) {
+        Optional<Group> group = groupRepository.findById(groupId);
+        if (group.isPresent()) {
+            List<Expense> expenses = expenseRepository.findAllByGroup(group.get());
+            return expenses.stream().map(ExpenseRecord::fromExpense).toList();
+        } else {
+            throw new EntityNotFoundException("Group not found");
+        }
     }
 }

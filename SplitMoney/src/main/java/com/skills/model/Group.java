@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Random;
 
 @Getter @Setter
 @Entity @Table(name = "groups")
@@ -18,16 +19,22 @@ public class Group {
     private String name;
     private String description;
 
+    @Column(length = 12, unique = true, nullable = true)
+    private String code;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User createdBy;
     private String createdAt;
+
+    private static final Random RANDOM = new Random();
 
     public Group() {
         this.id = UUID.randomUUID().toString();
         this.name = "";
         this.description = "";
         this.createdAt = "";
+        this.code = generateRandomCode();
     }
 
     public Group(String name, String description) {
@@ -35,10 +42,21 @@ public class Group {
         this.name = name;
         this.description = description;
         this.createdAt = LocalDateTime.now().toString();
+        this.code = generateRandomCode();
     }
 
     public static Group fromGroupRequest(CreateGroupRequest request) {
         return new Group(request.name(), request.description());
+    }
+
+    private static String generateRandomCode() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(12);
+        for (int i = 0; i < 12; i++) {
+            int idx = RANDOM.nextInt(chars.length());
+            sb.append(chars.charAt(idx));
+        }
+        return sb.toString();
     }
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -66,4 +84,3 @@ public class Group {
         user.getGroups().remove(this);
     }
 }
-

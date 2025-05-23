@@ -10,8 +10,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // Allow CORS from your frontend
 public class UserController {
 
     @Autowired
@@ -57,6 +62,24 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody Map<String, String> credentials, HttpSession session) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+        UserRecord user = userService.verifyUser(email, password);
+        if (user != null) {
+            session.setAttribute("user", user);
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Login successful");
+            response.put("user", user);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Invalid email or password");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
     }
 }
